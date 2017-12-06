@@ -18,12 +18,15 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-######项目描述：
-    使用vue+vue-route+vue-resource+axios实现项目功能；<br>
-    数据来源：vue-resource和Ajax跨域请求api数据，渲染在电影列表和电影院信息的首页；<br>
-    页面跳转：vue-route实现；<br>
-    电影详情页：获取每个电影id,发送数据请求<br>
-    电影院详情页：获取每个电影院id,发送数据请求<br>
-    预编译语言：使用stylus完成各个组件布局的样式编写；<br>
-    其他：购票选座未完成，地理位置定位未完成，电影院详情页的电影联动查询未完成<br>
+
+###### 项目描述
+
+``` bash
+使用vue+vue-route+vue-resource+axios实现项目功能；<br>
+数据来源：vue-resource和Ajax跨域请求api数据，渲染在电影列表和电影院信息的首页；<br>
+页面跳转：vue-route实现；<br>
+电影详情页：获取每个电影id,发送数据请求<br>
+电影院详情页：获取每个电影院id,发送数据请求<br>
+预编译语言：使用stylus完成各个组件布局的样式编写；<br>
+其他：购票选座未完成，地理位置定位未完成，电影院详情页的电影联动查询未完成<br>
+```
