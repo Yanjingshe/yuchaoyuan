@@ -18,6 +18,7 @@ npm run build
 npm run build --report
 ```
 
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## 项目描述
 
@@ -30,3 +31,18 @@ npm run build --report
 预编译语言：使用stylus完成各个组件布局的样式编写
 其他：购票选座未完成，地理位置定位未完成，电影院详情页的电影联动查询未完成
 ```
+## API 请求转发配置
+
+``` bash
+# 猫眼api详情请移步 http://www.jianshu.com/p/9855610eb1d4
+在 ./config/index.js 中的 proxyTable 配置代理：
+
+proxyTable: {
+      '/api': {
+        target: 'http://m.maoyan.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
