@@ -27,7 +27,7 @@
             <ul class="lazy clear" ref="movieLen">
               <li  v-for="item in movies" :key="item.id">
                 <a class="ma-dis selected" href="javascript:;">
-                    <img :alt="item.nm" :src="item.img" ref="movieImg"> 
+                    <img :alt="item.nm" :src="item.img" ref="movieImg" :data-id="item.id"> 
                   </a> 
                 </li>
               </ul>
@@ -42,7 +42,7 @@
           </div>
 
         <div class="time-line">
-            <a class="showday" href="active" v-for="data in Dates" :key="data.id" ref="www">{{data.text}}</a>
+            <a class="showday" href="active" v-for="data in Dates" :key="data.id">{{data.text}}</a>
         </div>
 
           <ul class="showtime-list">
@@ -68,28 +68,6 @@
                 </li>
           </ul>
            <ul class="showtime-list">
-              <li class="stl-time">
-                  <p class="begin-time">16:30</p>
-                    <p class="over-time">18:15结束</p>
-                </li>
-
-              <li class="stl-info">
-                 <div>
-                    <p class="stl-ver">国语 3D</p>
-                      <p class="two-line">3号厅 晶亮3D大</p>
-                 </div>
-                </li>
-
-              <li class="stl-price">
-                  <p class="unit"><span class="stonefont">34</span>元</p>
-                    <p class="origin-price">影院价:70元</p>
-                </li>
-                
-              <li class="stl-buy">
-                  <a class="stl-btn" href="">选座购票</a>
-                </li>
-          </ul>
-          <ul class="showtime-list">
               <li class="stl-time">
                   <p class="begin-time">16:30</p>
                     <p class="over-time">18:15结束</p>
@@ -138,7 +116,10 @@ export default {
       cinemaDetailModel: [],
       movies: [],
       DateShow: [],
-      movieImgLen: 0
+      movieImgLen: 0,
+      movieData: [],
+      movieDataid: [],
+      index: ''
     }
   },
   methods: {
@@ -169,6 +150,7 @@ export default {
         that.movieImgLen = moviesImg.length
         that.$refs.movieLen.style.width = 100 * that.movieImgLen + 110 + 'px'
         for (let i = 0, length = moviesImg.length; i < length; i++) {
+          moviesImg[0].className = 'active-img'// 设置第一张图片为默认样式
           moviesImg[i].onclick = function (e) {
             for (let j = 0, length = moviesImg.length; j < length; j++) {
               moviesImg[j].className = ''
@@ -176,19 +158,27 @@ export default {
             e.target.className = 'active-img'
             let x = -100 * i
             that.$refs.movieLen.style.transform = `translateX(${x}px)`
+            that.index = i
           }
         }
+        // 通过电影id把所有的电影信息一次性请求回来push进数组中
+        for (let i = 0, length = that.movies.length; i < length; i++) {
+          that.movieDataid.push(that.movies[i].id)
+          let newpath = '/api/showtime/wrap.json?cinemaid=' + cinemaid + '&' + 'movieid=' + that.movieDataid[i]
+          that.$http.get(newpath, {}, {
+            header: {
+            },
+            emulateJSON: true
+          }).then(function (res) {
+            res = res.data
+            that.movieData.push(res.data)
+            console.log(that.movieData)
+          }, function (error) {
+            console.log(error)
+          })
+          console.log(that.movieDataid)
+        }
       })
-      // let newpath = '/api/showtime/wrap.json?cinemaid=' + cinemaid + '&' + 'movieid=' + movieid
-      // that.$http.get(newpath, {}, {
-      //   header: {
-      //   },
-      //   emulateJSON: true
-      // }).then(function (res) {
-      //   console.log(res.data)
-      // }, function (error) {
-      //   console.log(error)
-      // })
       console.log(movieid)
       console.log(res.data)
     }, function (error) {

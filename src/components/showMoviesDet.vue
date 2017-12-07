@@ -15,8 +15,9 @@
           <div class="filter-right">
             <div class="movie-name">{{MovieDetailModel.nm}}</div>
             <!-- <div class="movie-ename">Coco***api没提供</div> -->
-            <div v-if="MovieDetailModel.wish && !MovieDetailModel.sc" class="released-score">{{MovieDetailModel.wish}}人想看</div>            
-            <div v-else class="released-score">{{MovieDetailModel.sc}}分<span class="add-people">({{MovieDetailModel.snum}}人评分)</span></div>
+            <div v-if="MovieDetailModel.wish && !MovieDetailModel.sc && !MovieDetailModel.showSnum" class="released-score">{{MovieDetailModel.wish}}人想看</div>            
+            <div v-else-if="MovieDetailModel.wish && MovieDetailModel.sc && MovieDetailModel.showSnum" class="released-score">{{MovieDetailModel.sc}}分<span class="add-people">({{MovieDetailModel.snum}}人评分)</span></div>
+            <div v-else class="noscore">暂无评分</div>            
             <div class="movie-category">{{MovieDetailModel.cat}}</div>
             <div class="movie-content-row">{{MovieDetailModel.src}}/{{MovieDetailModel.dur}}分钟</div>
             <div class="movie-content-row">{{MovieDetailModel.rt}}</div>
@@ -240,6 +241,10 @@ body
           opacity: .7
           margin-top 6px
           margin-bottom 8px
+      .noscore
+        font-size 14px
+        line-height 1
+        color rgba(255,255,255,.7)
 .pay-introduce
   position relative
   border-top 1px solid #e5e5e5
